@@ -1,6 +1,5 @@
 package screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,14 +8,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.game.jam.MyGame;
 
 public class MainMenu implements Screen {
 	private Stage stage = new Stage();
 	private ImageButton playButton;
-	private Game game;
+	private MyGame game;
 	
 	
-	public MainMenu(Texture playTexture, Game game ) {
+	public MainMenu(Texture playTexture, MyGame game ) {
 		this.game = game;
 		Gdx.input.setInputProcessor(stage);
 		playButton = new ImageButton(new SpriteDrawable(new Sprite(playTexture)));
@@ -42,7 +42,6 @@ public class MainMenu implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		//stage.setViewport(width, height, false);
 	}
 
 	@Override

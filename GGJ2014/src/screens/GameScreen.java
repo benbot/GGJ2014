@@ -1,32 +1,54 @@
 package screens;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
+import java.util.ArrayList;
+
+import Actors.Human;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.game.jam.MyGame;
 
 public class GameScreen implements Screen {
-	private Stage stage;
-	private Game game;
+	private OrthographicCamera camera = new OrthographicCamera();
+	private SpriteBatch batch = new SpriteBatch();
+	private double pastTime = 0.0;
+	private MyGame game;
+	private ArrayList<Human> humans = new ArrayList<Human>();
 	
-	public GameScreen(Game game) {
+	public GameScreen(MyGame game) {
 		this.game = game;
-		stage = new Stage();
+		camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
+	
+	private void update() {
+		pastTime += Gdx.graphics.getDeltaTime();
+		if(humans.size() < 20 && pastTime >= 2.5)
+		{
+			Human tempHuman = new Human(batch, game.textures.get("circle"));
+			humans.add(tempHuman);
+			Gdx.app.log("Human Coords", tempHuman.getX() + " : " + tempHuman.getY());
+			pastTime = 0;
+		}
 	}
 	
 	@Override
 	public void render(float delta) {
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
+		Gdx.gl20.glClearColor(1, 0, 1, 0);
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.setProjectionMatrix(camera.combined);
+		
+		update();
+		
+		for(Human human : humans ) {
+			human.draw();
+		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		stage.setViewport(width, height);
 		
 	}
 
