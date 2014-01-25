@@ -3,50 +3,52 @@ package screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 public class MainMenu implements Screen {
-	private SpriteBatch batch = new SpriteBatch ();
-	private Sprite play = new Sprite ();
+	private Stage stage = new Stage();
 	private ImageButton playButton;
 	private Game game;
 	
 	
 	public MainMenu(Texture playTexture, Game game ) {
 		this.game = game;
-		play.setTexture(playTexture);
-		playButton = new ImageButton(new SpriteDrawable(play));
+		Gdx.input.setInputProcessor(stage);
+		playButton = new ImageButton(new SpriteDrawable(new Sprite(playTexture)));
+		stage.addActor(playButton);
 		
 	}
 	
 
 	@Override
 	public void render(float delta) {
+		Gdx.gl.glClearColor(1f, 1f, 1f, 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		if(playButton.isPressed())
 		{
-			game.setScreen(null);
+			game.setScreen(new GameScreen(game));
 		}
-		batch.begin();
-		playButton.draw(batch, 1);
-		batch.end();
+		
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
+		//stage.setViewport(width, height, false);
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
