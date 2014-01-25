@@ -13,7 +13,6 @@ public abstract class Actor extends Sprite {
 	
 	public abstract void move(int x, int y);
 	
-	
 	public abstract void update();
 	
 }
