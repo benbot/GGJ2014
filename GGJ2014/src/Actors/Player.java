@@ -16,7 +16,7 @@ public class Player extends Actor
 	private float vec;
 	
 	
-	public Player(MyGame game, SpriteBatch batch, Texture tex) 
+	public Player(MyGame game, SpriteBatch batch, Texture tex, int posX, int posY) 
 	{
 		super(game, batch, tex);
 		
@@ -24,6 +24,7 @@ public class Player extends Actor
 		_acceleration = 200;
 		_deceleration = 10;
 		
+		setPosition(posX, posY);
 	}
 
 	

@@ -3,6 +3,7 @@ package screens;
 import java.util.ArrayList;
 
 import Actors.Human;
+import Actors.Player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -17,10 +18,12 @@ public class GameScreen implements Screen {
 	private double pastTime = 0.0;
 	private MyGame game;
 	private ArrayList<Human> humans = new ArrayList<Human>();
+	private Player player;
 	
 	public GameScreen(MyGame game) {
 		this.game = game;
 		camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		player = new Player(game, batch, game.textures.get("circle"), 100, 100);
 	}
 	
 	public ArrayList<Human> getHumans() {
@@ -54,7 +57,9 @@ public class GameScreen implements Screen {
 				tempRemoveList.add(human);
 			}
 		}
-
+		
+		player.draw();
+		
 		for(Object human : tempRemoveList) {
 			humans.remove(human);
 		}
