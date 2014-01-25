@@ -11,7 +11,7 @@ public abstract class Actor extends Sprite {
 		this.setTexture(new Texture(filename));
 	}
 	
-	public abstract void move(int x, int y);
+	public abstract void move();
 	
 	
 	public abstract void update();
