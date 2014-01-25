@@ -13,37 +13,54 @@ public class Player extends Actor
 	private float _deceleration;
 	private float _dx;
 	private float _dy;
-	private float vec;
+	private float _threshold;
+	private float _vec;
+	private boolean _move;
 	
 	
 	public Player(MyGame game, SpriteBatch batch, Texture tex) 
 	{
 		super(game, batch, tex);
 		
-		_maxSpeed = 300;
-		_acceleration = 200;
-		_deceleration = 10;
+		_threshold = 0f;
+		_maxSpeed = 8;
+		_acceleration = 60;
+		_deceleration = 35;
 		
 	}
 
 	
 	public void move() 
 	{
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) _dx -= Gdx.graphics.getDeltaTime() * _acceleration;
-		if(Gdx.input.isKeyPressed(Keys.RIGHT)) _dx += Gdx.graphics.getDeltaTime() * _acceleration;
-		if(Gdx.input.isKeyPressed(Keys.UP)) _dy -= Gdx.graphics.getDeltaTime() * _acceleration;
-		if(Gdx.input.isKeyPressed(Keys.DOWN)) _dy += Gdx.graphics.getDeltaTime() * _acceleration;
-		
-		vec = (float) Math.sqrt(_dx * _dx + _dy * _dy);
-		if(vec > 0)
+		if(Gdx.input.isKeyPressed(Keys.LEFT))
 		{
-			_dx -= (_dx /vec) * _deceleration * Gdx.graphics.getDeltaTime();
-			_dy -= (_dy / vec) * _deceleration * Gdx.graphics.getDeltaTime();
+			_dx -= Gdx.graphics.getDeltaTime() * _acceleration;
 		}
-		if(vec > _maxSpeed)
+		if(Gdx.input.isKeyPressed(Keys.RIGHT)) 
 		{
-			_dx = (_dx / vec) * _maxSpeed;
-			_dy = (_dy / vec) * _maxSpeed;
+			_dx += Gdx.graphics.getDeltaTime() * _acceleration;
+		}
+		if(Gdx.input.isKeyPressed(Keys.UP)) 
+		{
+			_dy -= Gdx.graphics.getDeltaTime() * _acceleration;
+		}
+		if(Gdx.input.isKeyPressed(Keys.DOWN))
+		{
+			_dy += Gdx.graphics.getDeltaTime() * _acceleration;
+		}
+		
+		System.out.println("value of vec: " + _vec);
+		_vec = (float) Math.sqrt(_dx * _dx + _dy * _dy);
+		
+		if(_vec > _threshold)
+		{
+			_dx -= (_dx / _vec) * _deceleration * Gdx.graphics.getDeltaTime();
+			_dy -= (_dy / _vec) * _deceleration * Gdx.graphics.getDeltaTime();
+		}
+		if(_vec > _maxSpeed)
+		{
+			_dx = (_dx / _vec) * _maxSpeed;
+			_dy = (_dy / _vec) * _maxSpeed;
 		}
 		
 		setPosition(getX()+_dx, getY()+_dy);

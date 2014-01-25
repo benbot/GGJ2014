@@ -1,7 +1,6 @@
 package com.game.jam;
 
 import android.os.Bundle;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
@@ -12,6 +11,8 @@ public class MainActivity extends AndroidApplication {
         
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = true;
+        cfg.useAccelerometer = true;
+        cfg.useCompass = true;
         
         initialize(new MyGame(), cfg);
     }
