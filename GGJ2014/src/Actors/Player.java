@@ -2,6 +2,9 @@ package Actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.jam.MyGame;
 
 public class Player extends Actor 
 {
@@ -13,9 +16,9 @@ public class Player extends Actor
 	private float vec;
 	
 	
-	public Player(String filename) 
+	public Player(MyGame game, SpriteBatch batch, Texture tex) 
 	{
-		super(filename);
+		super(game, batch, tex);
 		
 		_maxSpeed = 300;
 		_acceleration = 200;
@@ -23,7 +26,7 @@ public class Player extends Actor
 		
 	}
 
-	@Override
+	
 	public void move() 
 	{
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) _dx -= Gdx.graphics.getDeltaTime() * _acceleration;
@@ -47,7 +50,7 @@ public class Player extends Actor
 	}
 
 	@Override
-	public void update() 
+	public void act() 
 	{
 		move();
 	}
