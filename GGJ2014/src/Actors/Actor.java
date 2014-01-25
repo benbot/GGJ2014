@@ -30,5 +30,4 @@ public abstract class Actor extends Sprite {
 		batch.draw(getTexture(), getX(), getY());
 		batch.end();
 	}
-	
 }
