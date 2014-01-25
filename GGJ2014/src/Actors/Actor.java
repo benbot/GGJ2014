@@ -16,7 +16,6 @@ public abstract class Actor extends Sprite {
 		this.batch = batch;
 		this.game = game;
 		setTexture(tex);
-		
 	}
 
 	public void act() {

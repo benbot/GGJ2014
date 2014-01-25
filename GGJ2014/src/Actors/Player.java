@@ -18,7 +18,7 @@ public class Player extends Actor
 	private boolean _move;
 	
 	
-	public Player(MyGame game, SpriteBatch batch, Texture tex) 
+	public Player(MyGame game, SpriteBatch batch, Texture tex, int posX, int posY) 
 	{
 		super(game, batch, tex);
 		
@@ -27,6 +27,7 @@ public class Player extends Actor
 		_acceleration = 60;
 		_deceleration = 35;
 		
+		setPosition(posX, posY);
 	}
 
 	
