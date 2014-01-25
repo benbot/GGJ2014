@@ -1,3 +1,5 @@
 *.zip
 *.class
 */bin/*
+*/R.java
+*/BuildConfig.java
