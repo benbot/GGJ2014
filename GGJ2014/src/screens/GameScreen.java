@@ -23,13 +23,18 @@ public class GameScreen implements Screen {
 		camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
+	public ArrayList<Human> getHumans() {
+		return humans;
+	}
+	
 	private void update() {
 		pastTime += Gdx.graphics.getDeltaTime();
+		
 		if(humans.size() < 20 && pastTime >= 2.5)
 		{
-			Human tempHuman = new Human(batch, game.textures.get("circle"));
-			humans.add(tempHuman);
+			Human tempHuman = new Human(game, batch, game.textures.get("circle"));
 			Gdx.app.log("Human Coords", tempHuman.getX() + " : " + tempHuman.getY());
+			humans.add(tempHuman);
 			pastTime = 0;
 		}
 	}
@@ -41,9 +46,17 @@ public class GameScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 		
 		update();
-		
+		ArrayList<Object> tempRemoveList = new ArrayList<Object>();
 		for(Human human : humans ) {
 			human.draw();
+			
+			if(human.toRemove) {
+				tempRemoveList.add(human);
+			}
+		}
+
+		for(Object human : tempRemoveList) {
+			humans.remove(human);
 		}
 	}
 

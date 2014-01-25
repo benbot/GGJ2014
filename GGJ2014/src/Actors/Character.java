@@ -4,13 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.jam.MyGame;
 
 public abstract class Character extends Sprite {
 	SpriteBatch batch;
+	MyGame game;
+	public boolean toRemove = false;
 	
-	public Character(SpriteBatch batch, Texture tex) {
+	public Character(MyGame game, SpriteBatch batch, Texture tex) {
 		super();
 		this.batch = batch;
+		this.game = game;
 		setTexture(tex);
 		
 	}

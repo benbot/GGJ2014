@@ -3,11 +3,12 @@ package Actors;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.jam.MyGame;
+
 
 public class Human extends Character {
 	Rectangle rect;
@@ -15,8 +16,8 @@ public class Human extends Character {
 	Random rand = new Random();
 	float speed;
 	
-	public Human(SpriteBatch batch, Texture tex) {
-		super(batch, tex);
+	public Human(MyGame game, SpriteBatch batch, Texture tex) {
+		super(game, batch, tex);
 		double rads = rand.nextDouble() * Math.PI * 2;
 		direction = new Vector2((float)Math.cos(rads), (float)Math.sin(rads));
 		Gdx.app.log("Human Vel", direction.x + " : " + direction.y);
@@ -29,9 +30,14 @@ public class Human extends Character {
 	public void act() {
 		if(getX() > Gdx.graphics.getWidth() || getY() > Gdx.graphics.getHeight())
 		{
-			//TODO: REMOVE
+			toRemove = true;
 		}
-		isPressed();
+		
+		if(isPressed())
+		{
+			toRemove = true;
+		}
+		
 		setPosition(getX() + direction.x * speed * Gdx.graphics.getDeltaTime(), getY() + direction.y * speed * Gdx.graphics.getDeltaTime());
 		rect.x = getX();
 		rect.y = getY();
@@ -41,8 +47,6 @@ public class Human extends Character {
 		if(Gdx.input.isTouched()) {
 			if(rect.contains(Gdx.input.getX(), Gdx.input.getY())){
 				Gdx.app.log("I am ", "touched.");
-				Gdx.gl20.glClearColor(0, 1, 0, 0);
-				Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				return true;
 			}
 		}
