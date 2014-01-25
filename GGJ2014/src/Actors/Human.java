@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.jam.MyGame;
 
 
-public class Human extends Character {
+public class Human extends Actor {
 	Rectangle rect;
 	Vector2 direction;
 	Random rand = new Random();
